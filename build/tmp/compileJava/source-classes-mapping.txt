@@ -1,2 +1,0 @@
-glfp/glfp/GlfpApplication.java
- glfp.glfp.GlfpApplication
