@@ -55,7 +55,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void revise(BoardDto boardDto){
+    public void revisePost(BoardDto boardDto){
         Optional<Board> res = boardRepository.findById(boardDto.getId());
         try{
             res.ifPresent(m -> {
@@ -75,7 +75,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void delete(Long id){
+    public void deletePost(Long id){
         boardRepository.deleteById(id);
     }
 }

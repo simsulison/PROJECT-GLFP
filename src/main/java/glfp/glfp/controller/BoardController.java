@@ -13,7 +13,9 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
 
-    public BoardController(BoardService boardService) { this.boardService = boardService; }
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @GetMapping("/{board_id}") //전체조회
     public ResponseEntity<List> getBoardList(@PathVariable("board_id") Long bId){
@@ -27,21 +29,21 @@ public class BoardController {
         return new ResponseEntity<>(boardDTO, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping("/post")    //등록
     public ResponseEntity<String> register(@RequestBody BoardDto boardDto){
         boardService.savePost(boardDto);
         return new ResponseEntity<>(boardDto.getPostTitle(), HttpStatus.OK);
     }
 
-    @PutMapping("") //수정
+    @PutMapping("/post") //수정
     public ResponseEntity<Long> revise(@RequestBody BoardDto boardDto){
-        boardService.revise(boardDto);
+        boardService.revisePost(boardDto);
         return new ResponseEntity<>(boardDto.getId(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{post_id}") //삭제
+    @DeleteMapping("/post/{post_id}") //삭제
     public ResponseEntity<Long> delete(@PathVariable("post_id") Long pId){
-        boardService.delete(pId);
+        boardService.deletePost(pId);
         return new ResponseEntity<>(pId, HttpStatus.OK);
     }
 }
