@@ -26,10 +26,9 @@ public class MessageController {
 
         System.out.println("handling send msg: " + message + "to : "+ to);
         // to : memberId(Long)
-        MemberDto result = memberService.getMember(to);
+        MemberDto memberSearchResult = memberService.getMember(to);
 
-        //멤버가 존재하면
-        if (result != null) {
+        if (memberSearchResult != null) {
             simpMessagingTemplate.convertAndSend("/topic/messages/"+to, message);
         }
 

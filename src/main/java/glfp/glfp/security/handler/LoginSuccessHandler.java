@@ -14,7 +14,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        //로그인 성공시 처리할 로직을 구현.
         HttpSession session = request.getSession();
 
         session.setAttribute("userAccount", authentication.getName());  //세션에 user ID를 저장.
