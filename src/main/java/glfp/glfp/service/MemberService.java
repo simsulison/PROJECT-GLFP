@@ -18,8 +18,14 @@ public class MemberService {
 
     @Transactional
     public MemberDto getMember(Long mId){
-        Member member = memberRepository.findById(mId).get();
-        return member.toDto(member);
+
+        Optional<Member> result = memberRepository.findById(mId);
+        if(result.isPresent()) {
+            Member member = result.get();
+            return member.toDto(member);
+        }
+        //없으면 null 반환
+        return null;
     }
 
     @Transactional
@@ -51,4 +57,6 @@ public class MemberService {
     public void delete(Long id){
         memberRepository.deleteById(id);
     }
+
+
 }
