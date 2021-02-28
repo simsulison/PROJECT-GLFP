@@ -16,15 +16,10 @@ public class GlfpApplication  {
 		SpringApplication.run(GlfpApplication.class, args);
 	}
 
-
 	@Bean
 	public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
 		return new HiddenHttpMethodFilter();
 	}
-
-
-
-
 
 }
 
