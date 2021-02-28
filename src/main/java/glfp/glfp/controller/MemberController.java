@@ -2,12 +2,18 @@ package glfp.glfp.controller;
 
 import glfp.glfp.domain.entity.Member;
 import glfp.glfp.dto.MemberDto;
+import glfp.glfp.service.AuthSogangService;
+import glfp.glfp.service.EmailService;
 import glfp.glfp.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import java.util.HashMap;
+import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +22,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     @GetMapping("/{member_id}") //조회
     public ResponseEntity<MemberDto> getMember(@PathVariable("member_id") Long mId){
@@ -53,5 +60,18 @@ public class MemberController {
         return new ResponseEntity<>(userName, HttpStatus.OK);
     }
 
+    @GetMapping("/auth")
+    public ResponseEntity<String> getAuthCode(@RequestBody HashMap<String,String> requestMap) throws MessagingException {
+        String userEmail = requestMap.get("email");
+        AuthSogangService authSogangService = new AuthSogangService(emailService);
+        String authCode = authSogangService.authSogang(userEmail);
+
+        if(authCode == null)
+            return new ResponseEntity<>("email 주소를 확인해 주세요",HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(authCode, HttpStatus.OK);
+
+
+    }
 
 }

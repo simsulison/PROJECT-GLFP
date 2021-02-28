@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf() //csrf 토큰 검사 비활성화
                     .disable()
                 .authorizeRequests()    //Access 제한 허용
-                    .antMatchers("/login","/swagger-ui.html#/**","/member")   //control할 url 지정
+                    .antMatchers("/login","/swagger-ui.html#/**","/member","/member/auth")   //control할 url 지정
                         .permitAll()        // /login으로 접근하는 모든 사용자에 대해 접근 허용
                     .anyRequest()           // antMatcher로 지정한 url 이외의 모든 url에 대해
                     .authenticated()        // 인증된 사용자만 접근할 수 있도록 함. -> 특정 url 설정 모두 처리후 제일 마지막에 사용할 것!
